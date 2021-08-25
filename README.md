@@ -18,7 +18,7 @@ On the minecraft folder.
 tripwireAV
 Copyright © 2021 Tarvos Gaming
 Matches:                                                                                                                                                                                     
-/Users/tom.lister/Library/Application Support/minecraft/armorhud-1.0.5.jar:
+/Users/tom/Library/Application Support/minecraft/armorhud-1.0.5.jar:
 -> [discord_session_stealer] - Discord Session Stealer
 -> [discord_webhook] - Discord Webhook Call (data exfil + telemetry)
 -> [mc_session_stealer] - Minecraft Account Session Stealer
