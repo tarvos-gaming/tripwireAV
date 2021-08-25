@@ -8,9 +8,9 @@ import (
 	"log"
 	"os"
 
+	"github.com/hillu/go-yara/v4"
 	progressbar "github.com/schollz/progressbar/v3"
-	"github.com/tarvos-gaming/tripwireAV/scanner"
-	"github.com/tarvos-gaming/tripwireAV/scanner/rules"
+	"github.com/tarvos-gaming/tripwireAV/engine"
 )
 
 func main() {
@@ -33,6 +33,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	e := engine.New()
+
 	bar := progressbar.NewOptions(int(len(zipReader.File)),
 		progressbar.OptionEnableColorCodes(true),
 		progressbar.OptionSetWidth(15),
@@ -45,7 +48,7 @@ func main() {
 			BarStart:      "[",
 			BarEnd:        "]",
 		}))
-	matches := []rules.RuleResponse{}
+	var matches yara.MatchRules
 	for _, file := range zipReader.File {
 		bar.Add(1)
 		bar.Describe(fmt.Sprintf("Scanning %s", file.Name))
@@ -54,7 +57,7 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
-			scannerMatches := scanner.Scan(contents)
+			scannerMatches := e.Scan(contents)
 			matches = append(matches, scannerMatches...)
 		}
 	}
@@ -64,7 +67,7 @@ func main() {
 	}
 	fmt.Println("\nMatches:")
 	for _, match := range matches {
-		fmt.Printf("[%s] - %s\n", match.Name, match.Description)
+		fmt.Printf("[%s] - %s\n", match.Rule, match.Metas[0].Value)
 	}
 }
 

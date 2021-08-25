@@ -1,5 +1,8 @@
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/hillu/go-yara v1.3.0 h1:d9HklhWmCY9M/2dnFxYbNXDOFDid3HPGw53hdVk4Urg=
+github.com/hillu/go-yara/v4 v4.1.0 h1:ZLT9ar+g5r1IgEp1QVYpdqYCgKMNm7DuZYUJpHZ3yUI=
+github.com/hillu/go-yara/v4 v4.1.0/go.mod h1:rkb/gSAoO8qcmj+pv6fDZN4tOa3N7R+qqGlEkzT4iys=
 github.com/k0kubun/go-ansi v0.0.0-20180517002512-3bf9e2903213/go.mod h1:vNUNkEQ1e29fT/6vq2aBdFsgNPmy8qMdSay1npru+Sw=
 github.com/mattn/go-isatty v0.0.13/go.mod h1:cbi8OIDigv2wuxKPP5vlRcQ1OAZbq2CE4Kysco4FUpU=
 github.com/mattn/go-runewidth v0.0.13 h1:lTGmDsbAYt5DmK6OnoV7EuIF1wEIFAcxld6ypU4OSgU=
