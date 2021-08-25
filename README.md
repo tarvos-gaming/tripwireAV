@@ -4,7 +4,7 @@ Antivirus for Minecraft clients and mods. Detects session stealers + more.
 ## Roadmap
 - [x] Scanning and matching malicious code
 - [ ] Background mode. Scans minecraft folder automatically
-- [ ] Scan memory of running instances of minecraft
+- [ ] Scan memory of running minecraft instances
 - [ ] Central rule repository
 
 ## Installing
