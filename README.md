@@ -10,7 +10,7 @@ Antivirus for Minecraft clients and mods. Detects session stealers + more.
 ## Usage
 On the minecraft folder.
 ```./tripwireAV```
-*Output*
+### Output
 ```
 tripwireAV
 Copyright © 2021 Tarvos Gaming
