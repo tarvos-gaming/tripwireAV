@@ -1,81 +1,58 @@
 package main
 
 import (
-	"archive/zip"
-	"bytes"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 
-	"github.com/hillu/go-yara/v4"
-	progressbar "github.com/schollz/progressbar/v3"
+	"flag"
+
 	"github.com/tarvos-gaming/tripwireAV/engine"
 )
 
 func main() {
-	if len(os.Args) < 2 {
-		log.Fatal("No path to jar given.")
-		return
-	}
+	pathPtr := flag.String("file", "", "path to jar to scan")
+	flag.Parse()
 	println("tripwireAV\nCopyright © 2021 Tarvos Gaming")
-	path := os.Args[1]
-	file, err := os.Open(path)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-	fileReader, err := ioutil.ReadAll(file)
-	if err != nil {
-		log.Fatal(err)
-	}
-	zipReader, err := zip.NewReader(bytes.NewReader(fileReader), int64(len(fileReader)))
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	e := engine.New()
-
-	bar := progressbar.NewOptions(int(len(zipReader.File)),
-		progressbar.OptionEnableColorCodes(true),
-		progressbar.OptionSetWidth(15),
-		progressbar.OptionShowCount(),
-		progressbar.OptionSetDescription(""),
-		progressbar.OptionSetTheme(progressbar.Theme{
-			Saucer:        "[green]=[reset]",
-			SaucerHead:    "[green]>[reset]",
-			SaucerPadding: " ",
-			BarStart:      "[",
-			BarEnd:        "]",
-		}))
-	var matches yara.MatchRules
-	for _, file := range zipReader.File {
-		bar.Add(1)
-		bar.Describe(fmt.Sprintf("Scanning %s", file.Name))
-		if !file.FileInfo().IsDir() {
-			contents, err := deflate(file)
-			if err != nil {
-				log.Fatal(err)
-			}
-			scannerMatches := e.Scan(contents)
-			matches = append(matches, scannerMatches...)
+	var matches []engine.Matches
+	if *pathPtr != "" {
+		if filepath.Ext(*pathPtr) == ".jar" {
+			matches = append(matches, e.ScanJAR((*pathPtr)))
+		} else {
+			log.Fatal("File is not a jar.")
+		}
+	} else {
+		mcDir := getMinecraftPath()
+		err := filepath.Walk(mcDir,
+			func(path string, info os.FileInfo, err error) error {
+				if err != nil {
+					return err
+				}
+				if filepath.Ext(path) == ".jar" {
+					scanMatches := e.ScanJAR(path)
+					matches = append(matches, scanMatches)
+				}
+				return nil
+			})
+		if err != nil {
+			log.Println(err)
 		}
 	}
-	if len(matches) == 0 {
-		fmt.Println("\nNo matches found.")
-		return
-	}
-	fmt.Println("\nMatches:")
-	for _, match := range matches {
-		fmt.Printf("[%s] - %s\n", match.Rule, match.Metas[0].Value)
-	}
-}
 
-func deflate(file *zip.File) ([]byte, error) {
-	f, err := file.Open()
-	if err != nil {
-		return nil, err
+	fmt.Println("Matches:")
+	matched := false
+	for _, file := range matches {
+		if len(file.Matches) > 0 {
+			matched = true
+			fmt.Printf("%s:\n", file.Name)
+			for _, match := range file.Matches {
+				fmt.Printf("-> [%s] - %s\n", match.Rule, match.Metas[0].Value)
+			}
+		}
 	}
-	defer f.Close()
-	return ioutil.ReadAll(f)
+	if !matched {
+		fmt.Println("None.")
+	}
 }
