@@ -7,6 +7,11 @@ Antivirus for Minecraft clients and mods. Detects session stealers + more.
 - [ ] Scan memory of running minecraft instances
 - [ ] Central rule repository
 
+## Usage
+
+On a single jar.
+`./tripwireAV example.jar`
+
 ## Installing
 We will offer prebuilt binaries as soon as possible.
 
