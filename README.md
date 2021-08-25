@@ -1,2 +1,2 @@
 # tripwireAV
-Static analyser for minecraft mods. Detects session stealers + more.
+Static analyser for Minecraft mods. Detects session stealers + more.
