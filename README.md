@@ -8,6 +8,9 @@ Antivirus for Minecraft clients and mods. Detects session stealers + more.
 - [ ] Central rule repository
 
 ## Usage
+On a single jar.
+```./tripwireAV -file=example.jar```
+
 On the minecraft folder.
 ```./tripwireAV```
 ### Output
@@ -20,10 +23,6 @@ Matches:
 -> [discord_webhook] - Discord Webhook Call (data exfil + telemetry)
 -> [mc_session_stealer] - Minecraft Account Session Stealer
 ```
-
-
-On a single jar.
-```./tripwireAV -file=example.jar```
 
 ## Installing
 We will offer prebuilt binaries as soon as possible.
