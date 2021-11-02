@@ -1,0 +1,40 @@
+name: Go
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup MSYS2
+      uses: msys2/setup-msys2@v2
+      with:
+        install: >-
+          base-devel
+          gcc
+          pkg-config
+          autoconf
+          automake
+          libtool
+          wget
+          unzip
+    - shell: msys2 {0}
+      run: |
+        wget https://github.com/VirusTotal/yara/archive/refs/tags/v4.1.0.zip
+        unzip v4.1.0.zip
+        ls
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+    - name: Build
+      run: go build -v ./...
+
+    - name: Test
+      run: go test -v ./...
