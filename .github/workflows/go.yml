@@ -38,5 +38,5 @@ jobs:
         ../configure
         make -C . install
     - name: Build
-      shell: mysys2 {0}
+      shell: msys2 {0}
       run: GOARCH=amd64 CGO_ENABLED=1 go build -ldflags "-extldflags=-static" -tags yara_static -o tripwire.exe .
