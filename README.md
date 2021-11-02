@@ -1,7 +1,7 @@
+![Tripwire AV Logo](https://raw.githubusercontent.com/tarvos-gaming/tripwireAV/main/assets/twav_logo_slim.png)
+
 # tripwireAV
 Antivirus for Minecraft clients and mods. Detects session stealers + more.
-
-![Tripwire AV Logo](https://raw.githubusercontent.com/tarvos-gaming/tripwireAV/main/assets/twav_logo.png)
 
 ## Roadmap
 - [x] Scanning and matching malicious code
