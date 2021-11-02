@@ -17,8 +17,9 @@ jobs:
       with:
         install: >-
           base-devel
-          gcc
-          pkg-config
+          mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-make
+          mingw-w64-x86_64-pkgconf
           autoconf
           automake
           libtool
