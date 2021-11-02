@@ -11,10 +11,10 @@ Antivirus for Minecraft clients and mods. Detects session stealers + more.
 
 ## Usage
 On a single jar.
-```./tripwireAV -file=example.jar```
+```tripwireAV.exe -file=example.jar```
 
 On the minecraft folder.
-```./tripwireAV```
+```tripwireAV.exe```
 ### Output
 ```
 tripwireAV
