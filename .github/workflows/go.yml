@@ -20,6 +20,7 @@ jobs:
           mingw-w64-x86_64-gcc
           mingw-w64-x86_64-make
           mingw-w64-x86_64-pkgconf
+          mingw-w64-x86_64-go
           autoconf
           automake
           libtool
@@ -36,13 +37,6 @@ jobs:
         cd build
         ../configure
         make -C . install
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.17
     - name: Build
-      run: |
-        set PATH="%PATH%;C:\msys64\mingw64\bin"
-        set CGO_ENABLED=1
-        set GOARCH=amd64
-        go build -ldflags "-extldflags=-static" -tags yara_static -o tripwire.exe .
+      shell: mysys2 {0}
+      run: GOARCH=amd64 CGO_ENABLED=1 go build -ldflags "-extldflags=-static" -tags yara_static -o tripwire.exe .
