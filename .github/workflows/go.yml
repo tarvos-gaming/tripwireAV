@@ -26,6 +26,7 @@ jobs:
           libtool
           wget
           unzip
+          zip
     - name: Build Yara
       shell: msys2 {0}
       run: |
@@ -37,6 +38,14 @@ jobs:
         cd build
         ../configure
         make -C . install
-    - name: Build
+    - name: Build Tripwire
       shell: msys2 {0}
       run: GOARCH=amd64 CGO_ENABLED=1 go build -ldflags "-extldflags=-static" -tags yara_static -o tripwire.exe .
+    - name: Archive Build
+      shell: msys2 {0}
+      run: zip -r tripwire.zip tripwire.exe rules
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Build
+        path: tripwire.zip
