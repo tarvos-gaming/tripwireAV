@@ -30,6 +30,7 @@ jobs:
         wget https://github.com/VirusTotal/yara/archive/refs/tags/v4.1.0.zip
         unzip v4.1.0.zip
         cd yara-4.1.0
+        ./bootstrap.sh
         mkdir build
         cd build
         ../configure
